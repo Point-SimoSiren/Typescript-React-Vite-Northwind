@@ -10,17 +10,20 @@ import './App.css'
 
   type OtsikkoProps = {
     otsikko: string
+
   }
 
 const Events = ({otsikko}: OtsikkoProps) => {
 
   const [events, setEvents] = useState([])
 
+
   useEffect(() => {
   fetch("https://68d50690e29051d1c0acf3d6.mockapi.io/api/Events")
   .then(res => res.json())
   .then(data => setEvents(data))
   },[])
+
 
   function msToDate(ms: number): string {
     const date = new Date(ms);
