@@ -3,7 +3,15 @@ import './App.css'
 import CustomerService from './services/CustomerService'
 //import type { Customer } from './services/CustomerService'
 
-const CustomerAdd = ({x, reload}) => {
+type CustomerAddProps = {
+  x: boolean;
+  reload: (val: boolean) => void;
+  setMessage: (msg: string) => void;
+  setShowMessage: (show: boolean) => void;
+  setIspositive: (pos: boolean) => void;
+}
+
+const CustomerAdd: React.FC<CustomerAddProps> = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
 
   // Component state
   const [newCustomerId, setNewCustomerId] = useState("");
@@ -21,7 +29,7 @@ const CustomerAdd = ({x, reload}) => {
 
 
   // Suoritetaan kun painetaan save nappia
-  const formSubmit = (e) => {
+  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault() // sivu ei refresh kuten tavallisesti
     const newCustomer = {
       customerId: newCustomerId,
@@ -38,11 +46,35 @@ const CustomerAdd = ({x, reload}) => {
     }
 
     CustomerService.create(newCustomer)
-    .then(res => alert(res))
-    // useEffect list komponentin puolella suoritetaan, ja se hakee datat uudestaan.
-    .then(reload(!x))
+    .then(response => {
+    
+       setMessage(response)
+       setIspositive(true)
+       setShowMessage(true)
+      
+  setTimeout(() => {
+   setShowMessage(false)
+  }, 5000)
+  setTimeout(() => {
+   reload(!x)
+  }, 5100)
+    }
 
-  }
+  )
+      .catch(error => {
+        setMessage(error.message)
+        setIspositive(false)
+        setShowMessage(true)
+
+        setTimeout(() => {
+          setShowMessage(false)
+         }, 6000)
+      })
+    }
+
+ 
+
+  
 
   return (
     <>

@@ -1,3 +1,23 @@
+/* Message styles */
+.pos {
+  background: #e6ffe6;
+  color: #207520;
+  border: 1px solid #b2e5b2;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.neg {
+  background: #ffe6e6;
+  color: #a80000;
+  border: 1px solid #e5b2b2;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-weight: 600;
+}
 .customerDetails table {
   border-collapse: collapse;
   width: 100%;

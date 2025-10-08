@@ -5,16 +5,13 @@ import type { Customer } from './services/CustomerService'
 import CustomerService from './services/CustomerService'
 
 export type CustomerProps = {
-    customer: Customer,
-    x: boolean,
-    reload: any
-      
-    }
+  customer: Customer;
+}
   
 
 // Receive customer object as a prop with aliasname customer
 // from CustomerList components map loop
-const CustomerDetails = ({customer, x, reload}: CustomerProps) => {
+const CustomerDetails = ({customer}: CustomerProps) => {
 
   // Component state
 const [showDetails, setShowDetails] = useState(false)
@@ -26,11 +23,10 @@ const removeCustomer = (): void => {
   if (answer === false) {
     return;
   }
-  
   CustomerService.remove(customer.customerId)
-   .then(res => alert(res))
-   .then(reload(!x))
-
+   .then(res => {
+     alert(res);
+   })
 }
 
   return (
