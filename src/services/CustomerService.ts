@@ -23,9 +23,20 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
+
 // use: CustomerService.getAll(customerObject)
 const create = (newCustomer: Customer) => {
-    return axios.post(baseUrl, newCustomer)
+    const request = axios.post(baseUrl, newCustomer)
+    return request.then(response => response.data)
 }
 
-export default {getAll, create}
+
+// use: CustomerService.getAll(customerObject)
+const remove = (id: string) => {
+    const request = axios.delete(baseUrl + "/" + id)
+    //const request = axios.delete(`${baseUrl}/${id}`)
+    return request.then(response => response.data)
+}
+
+
+export default {getAll, create, remove}

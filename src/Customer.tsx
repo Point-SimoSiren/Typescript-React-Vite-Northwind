@@ -2,18 +2,36 @@ import { useState } from 'react'
 import './App.css'
 //import CustomerService from './services/CustomerService'
 import type { Customer } from './services/CustomerService'
+import CustomerService from './services/CustomerService'
 
-type CustomerProps = {
-    customer: Customer
-  }
+export type CustomerProps = {
+    customer: Customer,
+    x: boolean,
+    reload: any
+      
+    }
+  
 
 // Receive customer object as a prop with aliasname customer
 // from CustomerList components map loop
-const CustomerDetails = ({customer}: CustomerProps) => {
+const CustomerDetails = ({customer, x, reload}: CustomerProps) => {
 
   // Component state
 const [showDetails, setShowDetails] = useState(false)
 
+
+// Poisto funktio
+const removeCustomer = (): void => {
+  const answer = window.confirm("Remove customer " + customer.companyName + "?")
+  if (answer === false) {
+    return;
+  }
+  
+  CustomerService.remove(customer.customerId)
+   .then(res => alert(res))
+   .then(reload(!x))
+
+}
 
   return (
     <>
@@ -26,6 +44,10 @@ const [showDetails, setShowDetails] = useState(false)
         {showDetails && 
         <div className="customerDetails">
             <h4>{customer.companyName}</h4>
+
+            <button onClick={() => removeCustomer()}>delete</button>
+            <button>edit</button>
+
             <table>
                 <tr>
                     <th>Contact Name</th>

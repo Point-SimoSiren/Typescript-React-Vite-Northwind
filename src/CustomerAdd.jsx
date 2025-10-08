@@ -3,73 +3,104 @@ import './App.css'
 import CustomerService from './services/CustomerService'
 //import type { Customer } from './services/CustomerService'
 
-
-const CustomerAdd = () => {
-
-
+const CustomerAdd = ({x, reload}) => {
 
   // Component state
-  const [customerId, setCustomerId] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [contactTitle, setContactTitle] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [region, setRegion] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
-  const [phone, setPhone] = useState("");
-  const [fax, setFax] = useState("");
+  const [newCustomerId, setNewCustomerId] = useState("");
+  const [newCompanyName, setNewCompanyName] = useState("");
+  const [newContactName, setNewContactName] = useState("");
+  const [newContactTitle, setNewContactTitle] = useState("");
+  const [newAddress, setNewAddress] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newRegion, setNewRegion] = useState("");
+  const [newPostalCode, setNewPostalCode] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newFax, setNewFax] = useState("");
+  const [showForm, setShowForm] = useState(false);
+
+
+  // Suoritetaan kun painetaan save nappia
+  const formSubmit = (e) => {
+    e.preventDefault() // sivu ei refresh kuten tavallisesti
+    const newCustomer = {
+      customerId: newCustomerId,
+      companyName: newCompanyName,
+      contactName: newContactName,
+      contactTitle: newContactTitle,
+      address: newAddress,
+      city: newCity,
+      region: newRegion,
+      postalCode: newPostalCode,
+      country: newCountry,
+      phone: newPhone,
+      fax: newFax
+    }
+
+    CustomerService.create(newCustomer)
+    .then(res => alert(res))
+    // useEffect list komponentin puolella suoritetaan, ja se hakee datat uudestaan.
+    .then(reload(!x))
+
+  }
 
   return (
     <>
-      <h3>Adding new customer</h3>
-      <form>
+      <h3 onClick={() => setShowForm(!showForm)}>(+)Adding new customer</h3>
+
+      {showForm && (
+        <>
+        <hr/>
+      <form onSubmit={formSubmit}>
         <div>
           <label>Customer ID</label>
-          <input value={customerId} onChange={e => setCustomerId(e.target.value)} />
+          <input value={newCustomerId} onChange={e => setNewCustomerId(e.target.value)} />
         </div>
         <div>
           <label>Company Name</label>
-          <input value={companyName} onChange={e => setCompanyName(e.target.value)} />
+          <input value={newCompanyName} onChange={e => setNewCompanyName(e.target.value)} />
         </div>
         <div>
           <label>Contact Name</label>
-          <input value={contactName} onChange={e => setContactName(e.target.value)} />
+          <input value={newContactName} onChange={e => setNewContactName(e.target.value)} />
         </div>
         <div>
           <label>Contact Title</label>
-          <input value={contactTitle} onChange={e => setContactTitle(e.target.value)} />
+          <input value={newContactTitle} onChange={e => setNewContactTitle(e.target.value)} />
         </div>
         <div>
           <label>Address</label>
-          <input value={address} onChange={e => setAddress(e.target.value)} />
+          <input value={newAddress} onChange={e => setNewAddress(e.target.value)} />
         </div>
         <div>
           <label>City</label>
-          <input value={city} onChange={e => setCity(e.target.value)} />
+          <input value={newCity} onChange={e => setNewCity(e.target.value)} />
         </div>
         <div>
           <label>Region</label>
-          <input value={region} onChange={e => setRegion(e.target.value)} />
+          <input value={newRegion} onChange={e => setNewRegion(e.target.value)} />
         </div>
         <div>
           <label>Postal Code</label>
-          <input value={postalCode} onChange={e => setPostalCode(e.target.value)} />
+          <input value={newPostalCode} onChange={e => setNewPostalCode(e.target.value)} />
         </div>
         <div>
           <label>Country</label>
-          <input value={country} onChange={e => setCountry(e.target.value)} />
+          <input value={newCountry} onChange={e => setNewCountry(e.target.value)} />
         </div>
         <div>
           <label>Phone</label>
-          <input value={phone} onChange={e => setPhone(e.target.value)} />
+          <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
         </div>
         <div>
           <label>Fax</label>
-          <input value={fax} onChange={e => setFax(e.target.value)} />
+          <input value={newFax} onChange={e => setNewFax(e.target.value)} />
         </div>
+        <button type="submit">Save</button>
       </form>
+       </>
+       )
+      }
     </>
   )
 }
