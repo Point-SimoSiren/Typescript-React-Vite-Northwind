@@ -66,7 +66,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
 
           {editing && <CustomerEdit custToEdit={customer} x={x} reload={reload}
            setMessage={setMessage} setShowMessage={setShowMessage} setEditing={setEditing}
-            setIspositive={setIspositive} />}
+            setIspositive={setIspositive} setShowDetails={setShowDetails}/>}
 
 
         { !editing &&
