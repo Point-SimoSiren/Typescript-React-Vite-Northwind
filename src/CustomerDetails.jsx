@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import CustomerService from './services/CustomerService.js'
 
-const CustomerDetails = ({ customer }) => {
+const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const removeCustomer = () => {
@@ -12,8 +12,33 @@ const CustomerDetails = ({ customer }) => {
     }
     CustomerService.remove(customer.customerId)
       .then(res => {
-        alert(res)
-      })
+        if (res.status === 200) {
+        setMessage(`Successfully removed customer ${customer.companyName}`)
+        setIsPositive(true)
+        setShowMessage(true)
+        window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+
+        // Ilmoituksen piilotus
+        setTimeout(() => {
+        setShowMessage(false)},
+        5000
+        )
+        reload(!x)
+        }
+        
+            }
+        )
+        .catch(error => {
+            setMessage(error)
+            setIsPositive(false)
+            setShowMessage(true)
+            window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
+    
+            setTimeout(() => {
+              setShowMessage(false)
+             }, 6000)
+          })
+
   }
 
   return (
