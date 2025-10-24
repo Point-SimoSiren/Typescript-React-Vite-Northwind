@@ -12,7 +12,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
     }
     CustomerService.remove(customer.customerId)
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 204) {
         setMessage(`Successfully removed customer ${customer.companyName}`)
         setIspositive(true)
         setShowMessage(true)
