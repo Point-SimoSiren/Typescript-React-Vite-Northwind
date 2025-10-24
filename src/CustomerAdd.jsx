@@ -74,7 +74,7 @@ const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => 
       {showForm && (
         <>
           <hr />
-          <form onSubmit={formSubmit}>
+          <form onSubmit={formSubmit} className='addform'>
             <div>
               <label>Customer ID</label>
               <input value={newCustomerId} onChange={e => setNewCustomerId(e.target.value)} />
