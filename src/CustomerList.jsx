@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import CustomerService from './services/CustomerService.js'
-import CustomerDetails from './Customer.jsx'
+import CustomerDetails from './CustomerDetails.jsx'
 import CustomerAdd from './CustomerAdd.jsx'
 
 const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) => {
@@ -43,7 +43,9 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
       {show && customers && customers.map(c => {
         if (c.companyName.toLowerCase().includes(search.toLowerCase())) {
           return (
-            <CustomerDetails key={c.customerId} customer={c} />
+            <CustomerDetails key={c.customerId} customer={c} setMessage={setMessage} setIspositive={setIspositive}
+              setShowMessage={setShowMessage} x={x} reload={reload}
+            />
           )
         }
         return null

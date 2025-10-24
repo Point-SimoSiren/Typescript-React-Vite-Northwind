@@ -10,9 +10,7 @@ const App = () => {
   const [isPositive, setIspositive] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
 
-  const hideMessage = () => {
-    setShowMessage(false)
-  }
+
 
   console.log('App render: showMessage=', showMessage, 'message=', message, 'isPositive=', isPositive)
   return (
@@ -25,7 +23,6 @@ const App = () => {
         setMessage={setMessage}
         setShowMessage={setShowMessage}
         setIspositive={setIspositive}
-        hideMessage={hideMessage}
       />
       {/*
       <Events otsikko={'Coming events'} />

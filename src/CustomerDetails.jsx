@@ -14,7 +14,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
       .then(res => {
         if (res.status === 200) {
         setMessage(`Successfully removed customer ${customer.companyName}`)
-        setIsPositive(true)
+        setIspositive(true)
         setShowMessage(true)
         window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
 
