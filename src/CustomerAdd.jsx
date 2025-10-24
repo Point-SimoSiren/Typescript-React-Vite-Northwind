@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import CustomerService from './services/CustomerService.js'
 
-const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive, hideMessage }) => {
+const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
  
   const [newCustomerId, setNewCustomerId] = useState('')
   const [newCompanyName, setNewCompanyName] = useState('')
@@ -48,13 +48,13 @@ const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive, hide
         setNewPhone('')
         setNewFax('')
 
-        setMessage(response.message)
+        setMessage(response)
         setIspositive(true)
         setShowMessage(true)
-        reload(!x)
 
         setTimeout(() => {
-          hideMessage()
+          setShowMessage(false),
+            reload(!x)
         }, 5000)
       })
       .catch(error => {

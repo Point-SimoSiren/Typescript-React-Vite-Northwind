@@ -26,7 +26,6 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
         setMessage={setMessage}
         setShowMessage={setShowMessage}
         setIspositive={setIspositive}
-        hideMessage={hideMessage}
         x={x}
         reload={reload}
       />
