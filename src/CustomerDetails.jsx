@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import CustomerService from './services/CustomerService.js'
+import CustomerEdit from './CustomerEdit.jsx'
 
 const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload }) => {
+  
+  // statet
   const [showDetails, setShowDetails] = useState(false)
+  const [editing, setEditing] = useState(false)
 
+  // poistofunktio
   const removeCustomer = () => {
     const answer = window.confirm('Remove customer ' + customer.companyName + '?')
     if (!answer) {
@@ -56,8 +61,15 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
           <h4>{customer.companyName}</h4>
 
           <button onClick={removeCustomer}>delete</button>
-          <button>edit</button>
 
+          <button onClick={() => setEditing(true)}>edit</button>
+
+          {editing && <CustomerEdit custToEdit={customer} x={x} reload={reload}
+           setMessage={setMessage} setShowMessage={setMessage}
+            setIspositive={setIspositive} />}
+
+
+        { !editing &&
           <table>
             <thead>
               <tr>
@@ -84,6 +96,8 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
               </tr>
             </tbody>
           </table>
+            }
+
         </div>
       )}
     </>
