@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import CustomerService from './services/CustomerService.js'
 
-const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage,
+const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage, setEditing,
      setIspositive}) => {
  
   const [newCustomerId, setNewCustomerId] = useState(custToEdit.customerId)
@@ -49,17 +49,19 @@ const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage,
         setNewPhone('')
         setNewFax('')
 
-        setMessage(response)
+        setMessage(response.data)
         setIspositive(true)
         setShowMessage(true)
 
         setTimeout(() => {
           setShowMessage(false),
-            reload(!x)
+           window.scrollBy(0, -10000),
+            reload(!x),
+            setEditing(false)
         }, 5000)
       })
       .catch(error => {
-        setMessage(error.response.data)
+        setMessage(error.message)
         setIspositive(false)
         setShowMessage(true)
         setTimeout(() => {
@@ -118,6 +120,7 @@ const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage,
               <input value={newFax} onChange={e => setNewFax(e.target.value)} />
             </div>
             <button type="submit">Save</button>
+            <button onClick={() => setEditing(false)}>Back</button>
           </form>
         </>
   )

@@ -65,7 +65,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
           <button onClick={() => setEditing(true)}>edit</button>
 
           {editing && <CustomerEdit custToEdit={customer} x={x} reload={reload}
-           setMessage={setMessage} setShowMessage={setMessage}
+           setMessage={setMessage} setShowMessage={setShowMessage} setEditing={setEditing}
             setIspositive={setIspositive} />}
 
 
