@@ -20,24 +20,34 @@ const App = () => {
 
   return (
     <div>
-     
-
-
+      <Router>      
+      <Navbar bg="dark" variant="dark">
+        <Nav className="mr-auto">
+            <Nav.Link href='/customers'>Customers</Nav.Link>
+            <Nav.Link href='/users'>Users</Nav.Link>
+            <Nav.Link href='/laskuri'>Counter</Nav.Link>
+        </Nav>
+      </Navbar>
 
       {showMessage && (
         <Message message={message} isPositive={isPositive} />
       )}
 
+      <Routes>
+          <Route path="/customers"
+            element={<CustomerList setMessage={setMessage}
+             setIspositive={setIspositive} 
+           setShowMessage={setShowMessage} />}>
+          </Route>
 
+           
+          <Route path="/laskuri"
+              element={<Laskuri />}>
+          </Route>
 
-      <CustomerList
-        setMessage={setMessage}
-        setShowMessage={setShowMessage}
-        setIspositive={setIspositive}
-      />
-      {/*
-      <Events otsikko={'Coming events'} />
-      <Laskuri /> */}
+        </Routes>
+
+      </Router>
     </div>
   )
 }
