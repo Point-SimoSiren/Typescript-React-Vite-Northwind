@@ -3,7 +3,7 @@ import './App.css'
 import CustomerService from './services/CustomerService.js'
 
 const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage, setEditing,
-     setIspositive, setShowDetails}) => {
+     setIspositive}) => {
  
   const [newCustomerId, setNewCustomerId] = useState(custToEdit.customerId)
   const [newCompanyName, setNewCompanyName] = useState(custToEdit.companyName)
@@ -55,7 +55,7 @@ const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage, setEdi
          window.scrollBy(0, -10000)
          reload(!x)
         setEditing(false)
-        setShowDetails(false)
+      
 
         setTimeout(() => {
           setShowMessage(false)

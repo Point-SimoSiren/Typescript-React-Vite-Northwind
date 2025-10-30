@@ -9,7 +9,8 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState('')
   const [x, reload] = useState(false)
-
+  // kenellä on detailit näkyvissä. Arvo id esim. "ALFKI"
+  const [detailedId, setDetailedId] = useState("")
 
 
   useEffect(() => {
@@ -43,7 +44,8 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
         if (c.companyName.toLowerCase().includes(search.toLowerCase())) {
           return (
             <CustomerDetails key={c.customerId} customer={c} setMessage={setMessage} setIspositive={setIspositive}
-              setShowMessage={setShowMessage} x={x} reload={reload}
+              setShowMessage={setShowMessage} x={x} reload={reload} detailedId={detailedId}
+              setDetailedId={setDetailedId}
             />
           )
         }

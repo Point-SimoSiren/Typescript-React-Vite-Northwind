@@ -26,6 +26,8 @@ const App = () => {
             <Nav.Link href='/customers'>Customers</Nav.Link>
             <Nav.Link href='/users'>Users</Nav.Link>
             <Nav.Link href='/laskuri'>Counter</Nav.Link>
+            <Nav.Link href='/events'>Events</Nav.Link>
+
         </Nav>
       </Navbar>
 
@@ -40,6 +42,9 @@ const App = () => {
            setShowMessage={setShowMessage} />}>
           </Route>
 
+           <Route path="/events"
+              element={<Events otsikko={"Coming events"} />}>
+          </Route>
            
           <Route path="/laskuri"
               element={<Laskuri />}>

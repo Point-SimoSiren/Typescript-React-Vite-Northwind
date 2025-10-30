@@ -3,10 +3,12 @@ import './App.css'
 import CustomerService from './services/CustomerService.js'
 import CustomerEdit from './CustomerEdit.jsx'
 
-const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload }) => {
+const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload,
+  detailedId, setDetailedId
+ }) => {
   
   // statet
-  const [showDetails, setShowDetails] = useState(false)
+  //const [showDetails, setShowDetails] = useState(false) tieto tuleekin propsina nyt
   const [editing, setEditing] = useState(false)
 
   // poistofunktio
@@ -48,15 +50,15 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
 
   return (
     <>
-      {!showDetails ? (
-        <h3 onClick={() => setShowDetails(!showDetails)}>{customer.companyName}</h3>
+      {detailedId !== customer.customerId ? (
+        <h3 onClick={() => setDetailedId(customer.customerId)}>{customer.companyName}</h3>
       ) : (
-        <button onClick={() => setShowDetails(!showDetails)}>
+        <button onClick={() => setDetailedId("")}>
           Hide details
         </button>
       )}
 
-      {showDetails && (
+      {detailedId === customer.customerId && (
         <div className="customerDetails">
           <h4>{customer.companyName}</h4>
 
@@ -66,7 +68,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
 
           {editing && <CustomerEdit custToEdit={customer} x={x} reload={reload}
            setMessage={setMessage} setShowMessage={setShowMessage} setEditing={setEditing}
-            setIspositive={setIspositive} setShowDetails={setShowDetails}/>}
+            setIspositive={setIspositive} />}
 
 
         { !editing &&
