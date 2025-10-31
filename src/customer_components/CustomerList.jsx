@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+import '../App.css'
 import CustomerService from '../services/CustomerService.js'
 import CustomerDetails from './CustomerDetails.jsx'
 import CustomerAdd from './CustomerAdd.jsx'

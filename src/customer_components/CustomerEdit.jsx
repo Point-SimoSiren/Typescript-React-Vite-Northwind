@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import '../App.css'
 import CustomerService from '../services/CustomerService.js'
 
 const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage, setEditing,
