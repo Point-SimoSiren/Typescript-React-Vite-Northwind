@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import CustomerService from './services/CustomerService.js'
+import CustomerService from '../services/CustomerService.js'
 import CustomerEdit from './CustomerEdit.jsx'
 
 const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload,

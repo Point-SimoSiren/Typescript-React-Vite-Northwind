@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import Laskuri from './Laskuri.jsx'
 import Events from './Events.jsx'
-import CustomerList from './CustomerList.jsx'
+import CustomerList from './customer_components/CustomerList.jsx'
 import Message from './Message.jsx'
 
 // Navigointi ja Bootstrap importit

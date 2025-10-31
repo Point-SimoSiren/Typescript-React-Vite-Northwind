@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import CustomerService from './services/CustomerService.js'
-import CustomerDetails from './CustomerDetails.jsx'
-import CustomerAdd from './CustomerAdd.jsx'
+import CustomerService from '../services/CustomerService.js'
+import CustomerDetails from '../customer_components/CustomerDetails.jsx'
+import CustomerAdd from '../customer_components/CustomerAdd.jsx'
 
 const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) => {
   const [customers, setCustomers] = useState([])
