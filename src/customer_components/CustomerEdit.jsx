@@ -73,57 +73,60 @@ const CustomerEdit = ({custToEdit, x, reload, setMessage, setShowMessage, setEdi
 
   return (
     <>
-      <h4>Editing {custToEdit.companyName}</h4>
-          <hr />
-          <form onSubmit={formSubmit} className='addform'>
-            <div>
-              <label>Customer ID</label>
-              <input value={newCustomerId} disabled  />
-            </div>
-            <div>
-              <label>Company Name</label>
-              <input value={newCompanyName} required onChange={e => setNewCompanyName(e.target.value)} />
-            </div>
-            <div>
-              <label>Contact Name</label>
-              <input value={newContactName} onChange={e => setNewContactName(e.target.value)} />
-            </div>
-            <div>
-              <label>Contact Title</label>
-              <input value={newContactTitle} onChange={e => setNewContactTitle(e.target.value)} />
-            </div>
-            <div>
-              <label>Address</label>
-              <input value={newAddress} onChange={e => setNewAddress(e.target.value)} />
-            </div>
-            <div>
-              <label>City</label>
-              <input value={newCity} onChange={e => setNewCity(e.target.value)} />
-            </div>
-            <div>
-              <label>Region</label>
-              <input value={newRegion} onChange={e => setNewRegion(e.target.value)} />
-            </div>
-            <div>
-              <label>Postal Code</label>
-              <input value={newPostalCode} onChange={e => setNewPostalCode(e.target.value)} />
-            </div>
-            <div>
-              <label>Country</label>
-              <input value={newCountry} onChange={e => setNewCountry(e.target.value)} />
-            </div>
-            <div>
-              <label>Phone</label>
-              <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
-            </div>
-            <div>
-              <label>Fax</label>
-              <input value={newFax} onChange={e => setNewFax(e.target.value)} />
-            </div>
-            <button type="submit">Save</button>
-            <button onClick={() => setEditing(false)}>Back</button>
-          </form>
-        </>
+      <div className='customer-edit-header'>
+        <h4>Editing {custToEdit.companyName}</h4>
+      </div>
+      <form onSubmit={formSubmit} className='customer-form'>
+        <div className='customer-form-row'>
+          <label>Customer ID</label>
+          <input value={newCustomerId} disabled />
+        </div>
+        <div className='customer-form-row'>
+          <label>Company Name</label>
+          <input value={newCompanyName} required onChange={e => setNewCompanyName(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Contact Name</label>
+          <input value={newContactName} onChange={e => setNewContactName(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Contact Title</label>
+          <input value={newContactTitle} onChange={e => setNewContactTitle(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Address</label>
+          <input value={newAddress} onChange={e => setNewAddress(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>City</label>
+          <input value={newCity} onChange={e => setNewCity(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Region</label>
+          <input value={newRegion} onChange={e => setNewRegion(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Postal Code</label>
+          <input value={newPostalCode} onChange={e => setNewPostalCode(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Country</label>
+          <input value={newCountry} onChange={e => setNewCountry(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Phone</label>
+          <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
+        </div>
+        <div className='customer-form-row'>
+          <label>Fax</label>
+          <input value={newFax} onChange={e => setNewFax(e.target.value)} />
+        </div>
+        <div className='customer-form-actions'>
+          <button type="submit" className='customer-action accent'>Save changes</button>
+          <button type='button' className='customer-action ghost' onClick={() => setEditing(false)}>Cancel</button>
+        </div>
+      </form>
+    </>
   )
 }
 

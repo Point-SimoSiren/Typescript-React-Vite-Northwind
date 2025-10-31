@@ -6,15 +6,42 @@ const Laskuri = () => {
   const [count, setCount] = useState(0)
 
   return (
-      <>
-      <h3>Laskuri</h3>
+    <section className='laskuri-section'>
+      <div className='laskuri-card'>
+        <header className='laskuri-header'>
+          <h3>Laskuri</h3>
+          <p className='laskuri-subtitle'>Let the numbers riff and roll</p>
+        </header>
 
-      <h4>{count}</h4>
-      <button onClick={() => setCount(count + 1)}>+</button>
-      <button onClick={() => setCount(count - 1)}>-</button> 
-      <button onClick={() => setCount(0)}>reset</button> 
+        <div className='laskuri-display'>
+          <span className='laskuri-count'>{count}</span>
+        </div>
 
-    </>
+        <div className='laskuri-controls'>
+          <button
+            type='button'
+            className='laskuri-button accent'
+            onClick={() => setCount(count + 1)}
+          >
+            Boost
+          </button>
+          <button
+            type='button'
+            className='laskuri-button ghost'
+            onClick={() => setCount(count - 1)}
+          >
+            Drop
+          </button>
+          <button
+            type='button'
+            className='laskuri-button outline'
+            onClick={() => setCount(0)}
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </section>
   )
 }
 
