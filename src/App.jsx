@@ -5,6 +5,7 @@ import Events from './Events.jsx'
 import CustomerList from './customer_components/CustomerList.jsx'
 import Message from './Message.jsx'
 import UserList from './user_components/UserList.jsx'
+import Login from './Login' // <-------------
 
 
 // Navigointi ja Bootstrap importit
@@ -15,13 +16,21 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
 const App = () => {
+  // App komponentin statet
   const [message, setMessage] = useState('')
   const [isPositive, setIspositive] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState('') //<-- username talletettu
 
 
   return (
     <div>
+
+     {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} 
+                setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser} />}
+
+
+      {loggedInUser && 
       <Router>      
       <Navbar className="cosmic-navbar" expand="lg">
         <Nav className="w-100 justify-content-center">
@@ -32,10 +41,6 @@ const App = () => {
 
         </Nav>
       </Navbar>
-
-      {showMessage && (
-        <Message message={message} isPositive={isPositive} />
-      )}
 
       <Routes>
           <Route path="/customers"
@@ -61,7 +66,12 @@ const App = () => {
 
         </Routes>
 
-      </Router>
+      </Router> }
+
+        {showMessage && (
+        <Message message={message} isPositive={isPositive} />
+      )}
+
     </div>
   )
 }
