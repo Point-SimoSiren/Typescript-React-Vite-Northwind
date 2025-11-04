@@ -2,7 +2,19 @@ import axios from 'axios'
 
 const baseUrl = 'https://localhost:7165/api/Customers'
 
+let token = null
+
+// Tämä on metodi jota kutsutaan aina ennen kuin tehdään muu pyyntö serviceen
+// Parametrina annetaan token joka otetaan local storagesta
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
+
+
 const getAll = () => {
+  const config = {
+        headers: { Authorization: token },
+    }
   return axios.get(baseUrl).then(response => response.data)
 }
 
