@@ -30,6 +30,13 @@ const App = () => {
 },[])
 
 
+// Logout napin tapahtumankäsittelijä
+const logout = () => {
+  localStorage.clear()
+  setLoggedInUser('')
+}
+
+
   return (
     <div>
 
@@ -48,6 +55,7 @@ const App = () => {
             <Nav.Link href='/users'>Users</Nav.Link>
             <Nav.Link href='/laskuri'>Counter</Nav.Link>
             <Nav.Link href='/events'>Events</Nav.Link>
+            <button onClick={() => logout()}>Logout</button>
 
         </Nav>
       </Navbar>

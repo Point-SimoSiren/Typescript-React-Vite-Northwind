@@ -36,4 +36,4 @@ const edit = cust => {
   return axios.put(`${baseUrl}/${id}`, cust)
 }
 
-export default { getAll, create, remove, edit }
+export default { getAll, create, remove, edit, setToken }
