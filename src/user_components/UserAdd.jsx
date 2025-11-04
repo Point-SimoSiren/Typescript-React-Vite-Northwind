@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../App.css'
 import UserService from '../services/UserService.js'
-import bcrypt from 'bcryptjs'
+//import bcrypt from 'bcryptjs'
 
 const UserAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
  
@@ -17,15 +17,18 @@ const UserAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
     e.preventDefault()
 
     // Salasana kryptataan
-    const hashed = await bcrypt.hash(newPassword, 10)
+    //const hashed = await bcrypt.hash(newPassword, 10)
 
     const newUser = {
       firstname: newFirstname,
       lastname: newLastname,
       username: newUsername,
-      password: hashed, //käytetään kryptattua
+     // password: hashed, //käytetään kryptattua
+      password: newPassword,
       acceslevel: newAccesslevel
     }
+
+    //alert(newUser.password)
 
     UserService.create(newUser)
       .then(response => {

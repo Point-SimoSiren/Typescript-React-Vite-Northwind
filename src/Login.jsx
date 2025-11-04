@@ -1,9 +1,9 @@
 import './App.css'
 import React, {useState} from 'react'
 import LoginService from './services/LoginService'
-import bcrypt from 'bcryptjs'
+//import bcrypt from 'bcryptjs'
 
-const Login = ({setIsPositive, setMessage, setShowMessage, setLoggedInUser}) => {
+const Login = ({setIspositive, setMessage, setShowMessage, setLoggedInUser}) => {
 
 // Komponentin tilan määritys
 const [username, setUsername] = useState('')
@@ -15,12 +15,15 @@ const handleSubmit = async e => {
       e.preventDefault()
 
     // Salasana kryptataan
-    const hashed = await bcrypt.hash(newPassword, 10)
+    //const hashed = await bcrypt.hash(password, 10)
 
       var userForAuth = {
         username: username,
-        password: hashed
+        password: password
+        //password: hashed
     }
+
+    //alert(userForAuth.password)
 
     // Käytetään services/Auth.js tiedoston metodia
     LoginService.authenticate(userForAuth)
@@ -36,7 +39,7 @@ const handleSubmit = async e => {
         setLoggedInUser(response.data.username)
 
        setMessage(`Logged in as: ${userForAuth.username}`)
-       setIsPositive(true)
+       setIspositive(true)
        setShowMessage(true)
       
        setTimeout(() => {
@@ -47,7 +50,7 @@ const handleSubmit = async e => {
       })
       .catch(error => {
         setMessage(error)
-        setIsPositive(false)
+        setIspositive(false)
         setShowMessage(true)
 
         setTimeout(() => {

@@ -26,9 +26,12 @@ const App = () => {
   return (
     <div>
 
-     {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} 
+     {!loggedInUser && <Login setMessage={setMessage} setIspositive={setIspositive} 
                 setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser} />}
 
+   {showMessage && (
+        <Message message={message} isPositive={isPositive} />
+      )}
 
       {loggedInUser && 
       <Router>      
@@ -68,9 +71,7 @@ const App = () => {
 
       </Router> }
 
-        {showMessage && (
-        <Message message={message} isPositive={isPositive} />
-      )}
+     
 
     </div>
   )
