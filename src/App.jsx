@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import Laskuri from './Laskuri.jsx'
 import Events from './Events.jsx'
@@ -6,7 +6,6 @@ import CustomerList from './customer_components/CustomerList.jsx'
 import Message from './Message.jsx'
 import UserList from './user_components/UserList.jsx'
 import Login from './Login' // <-------------
-
 
 // Navigointi ja Bootstrap importit
 import Navbar from 'react-bootstrap/Navbar'
@@ -21,6 +20,14 @@ const App = () => {
   const [isPositive, setIspositive] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
   const [loggedInUser, setLoggedInUser] = useState('') //<-- username talletettu
+
+
+  useEffect(() => {
+  let storedUser = localStorage.getItem("username")
+  if (storedUser !== null) {
+    setLoggedInUser(storedUser)
+  }
+},[])
 
 
   return (

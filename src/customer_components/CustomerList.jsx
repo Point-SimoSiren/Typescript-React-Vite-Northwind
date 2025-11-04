@@ -14,6 +14,10 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
 
 
   useEffect(() => {
+     const token = localStorage.getItem('token')
+        CustomerService
+            .setToken(token)
+
     CustomerService.getAll()
       .then(data => setCustomers(data))
       .catch(error => alert('Customers could not be loaded. ' + error.message))

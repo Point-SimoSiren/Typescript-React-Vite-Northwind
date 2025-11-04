@@ -15,11 +15,16 @@ const getAll = () => {
   const config = {
         headers: { Authorization: token },
     }
-  return axios.get(baseUrl).then(response => response.data)
+  return axios.get(baseUrl, config)
+  .then(response => response.data)
 }
 
 const create = newCustomer => {
-  return axios.post(baseUrl, newCustomer).then(response => response.data)
+   const config = {
+        headers: { Authorization: token },
+    }
+  return axios.post(baseUrl, newCustomer, config)
+  .then(response => response.data)
 }
 
 const remove = id => {
