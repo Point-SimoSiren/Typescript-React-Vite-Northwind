@@ -3,15 +3,16 @@ import '../App.css'
 import CustomerService from '../services/CustomerService.js'
 import CustomerEdit from './CustomerEdit.jsx'
 
+// Näyttää asiakkaan tiedot, mahdollistaa poiston ja editointiin siirtymisen.
+// Testit mockkaavat verkko- ja confirm-kutsut, joten komponentti pysyy UI-logiikkana.
 const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, x, reload,
   detailedId, setDetailedId
  }) => {
   
-  // statet
-  //const [showDetails, setShowDetails] = useState(false) tieto tuleekin propsina nyt
+  // Paikallinen tila hallitsee edit-näkymän avautumista.
   const [editing, setEditing] = useState(false)
 
-  // poistofunktio
+  // Poistofunktio pyytää vahvistuksen, kutsuu palvelua ja näyttää ilmoitukset.
   const removeCustomer = () => {
     const answer = window.confirm('Remove customer ' + customer.companyName + '?')
     if (!answer) {
@@ -50,6 +51,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
 
   return (
     <>
+      {/* Toggle näyttää vain otsikkonapin kun yksityiskohtia ei katsota */}
       {detailedId !== customer.customerId ? (
         <button
           type='button'
@@ -68,6 +70,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
         </button>
       )}
 
+      {/* Varsinainen kortti: näkyy vain kun valitun asiakkaan id täsmää */}
       {detailedId === customer.customerId && (
         <div className="customer-card">
           <div className='customer-card-header'>
