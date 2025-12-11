@@ -37,7 +37,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
         )
         .catch(error => {
             setMessage(error)
-            setIsPositive(false)
+            setIspositive(false)
             setShowMessage(true)
             window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
     
@@ -51,20 +51,37 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
   return (
     <>
       {detailedId !== customer.customerId ? (
-        <h3 onClick={() => setDetailedId(customer.customerId)}>{customer.companyName}</h3>
+        <button
+          type='button'
+          className='customer-toggle'
+          onClick={() => setDetailedId(customer.customerId)}
+        >
+          {customer.companyName}
+        </button>
       ) : (
-        <button onClick={() => setDetailedId("")}>
+        <button
+          type='button'
+          className='customer-toggle active'
+          onClick={() => setDetailedId('')}
+        >
           Hide details
         </button>
       )}
 
       {detailedId === customer.customerId && (
-        <div className="customerDetails">
-          <h4>{customer.companyName}</h4>
+        <div className="customer-card">
+          <div className='customer-card-header'>
+            <h4>{customer.companyName}</h4>
+            <div className='customer-card-actions'>
+              <button type='button' className='customer-action danger' onClick={removeCustomer}>
+                Delete
+              </button>
 
-          <button onClick={removeCustomer}>delete</button>
-
-          <button onClick={() => setEditing(true)}>edit</button>
+              <button type='button' className='customer-action' onClick={() => setEditing(true)}>
+                Edit
+              </button>
+            </div>
+          </div>
 
           {editing && <CustomerEdit custToEdit={customer} x={x} reload={reload}
            setMessage={setMessage} setShowMessage={setShowMessage} setEditing={setEditing}
@@ -72,32 +89,34 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
 
 
         { !editing &&
-          <table>
-            <thead>
-              <tr>
-                <th>Contact Name</th>
-                <th>Title</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Region</th>
-                <th>Postal Code</th>
-                <th>Country</th>
-                <th>Phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{customer.contactName}</td>
-                <td>{customer.contactTitle}</td>
-                <td>{customer.address}</td>
-                <td>{customer.city}</td>
-                <td>{customer.region}</td>
-                <td>{customer.postalCode}</td>
-                <td>{customer.country}</td>
-                <td>{customer.phone}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className='customer-table-wrapper'>
+            <table className='customer-table'>
+              <thead>
+                <tr>
+                  <th>Contact Name</th>
+                  <th>Title</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>Region</th>
+                  <th>Postal Code</th>
+                  <th>Country</th>
+                  <th>Phone</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{customer.contactName}</td>
+                  <td>{customer.contactTitle}</td>
+                  <td>{customer.address}</td>
+                  <td>{customer.city}</td>
+                  <td>{customer.region}</td>
+                  <td>{customer.postalCode}</td>
+                  <td>{customer.country}</td>
+                  <td>{customer.phone}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
             }
 
         </div>

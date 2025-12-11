@@ -1,54 +1,45 @@
 import { useState } from 'react'
 import '../App.css'
-import CustomerService from '../services/CustomerService.js'
+import UserService from '../services/UserService.js'
+//import bcrypt from 'bcryptjs'
 
-const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
+const UserAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => {
  
-  const [newCustomerId, setNewCustomerId] = useState('')
-  const [newCompanyName, setNewCompanyName] = useState('')
-  const [newContactName, setNewContactName] = useState('')
-  const [newContactTitle, setNewContactTitle] = useState('')
-  const [newAddress, setNewAddress] = useState('')
-  const [newCity, setNewCity] = useState('')
-  const [newRegion, setNewRegion] = useState('')
-  const [newPostalCode, setNewPostalCode] = useState('')
-  const [newCountry, setNewCountry] = useState('')
-  const [newPhone, setNewPhone] = useState('')
-  const [newFax, setNewFax] = useState('')
+  // Statet
+  const [newFirstname, setNewFirstname] = useState('')
+  const [newLastname, setNewLastname] = useState('')
+  const [newUsername, setNewUsername] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [newAccesslevel, setNewAccesslevel] = useState(2)
   const [showForm, setShowForm] = useState(false)
 
-  const formSubmit = e => {
+  const formSubmit = async e => {
     e.preventDefault()
-    const newCustomer = {
-      customerId: newCustomerId,
-      companyName: newCompanyName,
-      contactName: newContactName,
-      contactTitle: newContactTitle,
-      address: newAddress,
-      city: newCity,
-      region: newRegion,
-      postalCode: newPostalCode,
-      country: newCountry,
-      phone: newPhone,
-      fax: newFax
+
+    // Salasana kryptataan
+    //const hashed = await bcrypt.hash(newPassword, 10)
+
+    const newUser = {
+      firstname: newFirstname,
+      lastname: newLastname,
+      username: newUsername,
+     // password: hashed, //käytetään kryptattua
+      password: newPassword,
+      acceslevel: newAccesslevel
     }
 
-    CustomerService.create(newCustomer)
+    //alert(newUser.password)
+
+    UserService.create(newUser)
       .then(response => {
        
-        setNewCustomerId('')
-        setNewCompanyName('')
-        setNewContactName('')
-        setNewContactTitle('')
-        setNewAddress('')
-        setNewCity('')
-        setNewRegion('')
-        setNewPostalCode('')
-        setNewCountry('')
-        setNewPhone('')
-        setNewFax('')
+        setNewFirstname('')
+        setNewLastname('')
+        setNewUsername('')
+        setNewPassword('')
+        setNewAccesslevel('')
 
-        setMessage(response)
+        setMessage("Lisättiin käyttäjä: " + newUser.username)
         setIspositive(true)
         setShowMessage(true)
 
@@ -69,56 +60,35 @@ const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => 
 
   return (
     <>
-      <h3 onClick={() => setShowForm(!showForm)}>(+)Adding new customer</h3>
+      <h3 onClick={() => setShowForm(!showForm)}>(+)Adding new user</h3>
 
       {showForm && (
         <>
           <hr />
           <form onSubmit={formSubmit} className='addform'>
+        
             <div>
-              <label>Customer ID</label>
-              <input value={newCustomerId} onChange={e => setNewCustomerId(e.target.value)} />
+              <label>First Name</label>
+              <input value={newFirstname} onChange={e => setNewFirstname(e.target.value)} />
             </div>
             <div>
-              <label>Company Name</label>
-              <input value={newCompanyName} onChange={e => setNewCompanyName(e.target.value)} />
+              <label>Last Name</label>
+              <input value={newLastname} onChange={e => setNewLastname(e.target.value)} />
             </div>
             <div>
-              <label>Contact Name</label>
-              <input value={newContactName} onChange={e => setNewContactName(e.target.value)} />
+              <label>Username</label>
+              <input value={newUsername} onChange={e => setNewUsername(e.target.value)} />
             </div>
             <div>
-              <label>Contact Title</label>
-              <input value={newContactTitle} onChange={e => setNewContactTitle(e.target.value)} />
+              <label>Password</label>
+              <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
             </div>
             <div>
-              <label>Address</label>
-              <input value={newAddress} onChange={e => setNewAddress(e.target.value)} />
+              <label>Access level</label>
+              <input type="number" min={1} max={2} value={newAccesslevel} onChange={e => setNewAccesslevel(e.target.value)} />
+              {newAccesslevel == 1 ? <label>Admin user</label> : <label>Basic user</label>}
             </div>
-            <div>
-              <label>City</label>
-              <input value={newCity} onChange={e => setNewCity(e.target.value)} />
-            </div>
-            <div>
-              <label>Region</label>
-              <input value={newRegion} onChange={e => setNewRegion(e.target.value)} />
-            </div>
-            <div>
-              <label>Postal Code</label>
-              <input value={newPostalCode} onChange={e => setNewPostalCode(e.target.value)} />
-            </div>
-            <div>
-              <label>Country</label>
-              <input value={newCountry} onChange={e => setNewCountry(e.target.value)} />
-            </div>
-            <div>
-              <label>Phone</label>
-              <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
-            </div>
-            <div>
-              <label>Fax</label>
-              <input value={newFax} onChange={e => setNewFax(e.target.value)} />
-            </div>
+           
             <button type="submit">Save</button>
           </form>
         </>
@@ -127,4 +97,4 @@ const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => 
   )
 }
 
-export default CustomerAdd
+export default UserAdd

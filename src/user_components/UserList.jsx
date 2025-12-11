@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../App.css'
 import UserService from '../services/UserService.js'
-//import UserAdd from '../user_components/UserAdd.jsx'
+import UserAdd from '../user_components/UserAdd.jsx'
 
 const UserList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) => {
   const [users, setUsers] = useState([])
@@ -33,13 +33,13 @@ const UserList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) =>
     <>
       <h2>Users</h2>
 
-      {/* <UserAdd
+      <UserAdd
         setMessage={setMessage}
         setShowMessage={setShowMessage}
         setIspositive={setIspositive}
         x={x}
         reload={reload}
-      /> */}
+      />
 
       <div className='user-table-section'>
         <div className='user-table-toolbar'>
@@ -61,7 +61,7 @@ const UserList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) =>
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Username</th>
-                <th>Accesslevel</th>
+                <th>User type</th>
               </tr>
             </thead>
             <tbody>
@@ -70,7 +70,9 @@ const UserList = ({ setMessage, setShowMessage, setIspositive, hideMessage }) =>
                   <td>{u.firstname}</td>
                   <td>{u.lastname}</td>
                   <td>{u.username}</td>
-                  <td>{u.acceslevel}</td>
+                  <td>{u.acceslevel == 1 && "Admin"}
+                    {u.acceslevel != 1 && "Basic user"}
+                  </td>
                 </tr>
               ))}
               {filteredUsers.length === 0 && (

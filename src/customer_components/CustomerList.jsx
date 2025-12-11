@@ -14,14 +14,38 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
 
 
   useEffect(() => {
+     const token = localStorage.getItem('token')
+        CustomerService
+            .setToken(token)
+
     CustomerService.getAll()
       .then(data => setCustomers(data))
       .catch(error => alert('Customers could not be loaded. ' + error.message))
   }, [x])
 
+  const normalizedSearch = search.trim().toLowerCase()
+
+  const filteredCustomers = customers.filter(c => {
+    const companyName = (c?.companyName || '').toLowerCase()
+
+    if (normalizedSearch === '') {
+      return true
+    }
+
+    return companyName.includes(normalizedSearch)
+  })
+
   return (
-    <>
-      <h2 onClick={() => setShow(!show)}>Customers</h2>
+    <section className='customers-section'>
+      <header className='customers-header'>
+        <div className='customers-title-group'>
+          <h2 className='customers-title' onClick={() => setShow(!show)}>
+            Customers
+          </h2>
+          <p className='customers-subtitle'>Tap the title to toggle the roster</p>
+        </div>
+        <span className='customers-pill'>{customers.length} total</span>
+      </header>
 
       <CustomerAdd
         setMessage={setMessage}
@@ -31,27 +55,43 @@ const CustomerList = ({ setMessage, setShowMessage, setIspositive, hideMessage }
         reload={reload}
       />
 
-      {/* hakukentta */}
-      <input
-        type='text'
-        placeholder='Search by Company name'
-        value={search}
-        onChange={({ target }) => setSearch(target.value)}
-      />
+      <div className='customers-toolbar'>
+        <label className='customers-search'>
+          <span className='customers-search-label'>Search company</span>
+          <input
+            type='text'
+            placeholder='Search by company name'
+            value={search}
+            onChange={({ target }) => setSearch(target.value)}
+          />
+        </label>
+      </div>
 
-      {/* Asiakkaiden listaus silmukassa */}
-      {show && customers && customers.map(c => {
-        if (c.companyName.toLowerCase().includes(search.toLowerCase())) {
-          return (
-            <CustomerDetails key={c.customerId} customer={c} setMessage={setMessage} setIspositive={setIspositive}
-              setShowMessage={setShowMessage} x={x} reload={reload} detailedId={detailedId}
+      {show && (
+        <div className='customers-list'>
+          {/* Asiakkaiden listaus silmukassa */}
+          {filteredCustomers.map(c => (
+            <CustomerDetails
+              key={c.customerId}
+              customer={c}
+              setMessage={setMessage}
+              setIspositive={setIspositive}
+              setShowMessage={setShowMessage}
+              x={x}
+              reload={reload}
+              detailedId={detailedId}
               setDetailedId={setDetailedId}
             />
-          )
-        }
-        return null
-      })}
-    </>
+          ))}
+
+          {filteredCustomers.length === 0 && (
+            <div className='customers-empty'>
+              <p>No matching customers. Try a different riff.</p>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
   )
 }
 

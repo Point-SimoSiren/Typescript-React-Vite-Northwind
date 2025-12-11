@@ -69,57 +69,108 @@ const CustomerAdd = ({x, reload, setMessage, setShowMessage, setIspositive}) => 
 
   return (
     <>
-      <h3 onClick={() => setShowForm(!showForm)}>(+)Adding new customer</h3>
+      <button
+        type='button'
+        className='customer-form-toggle'
+        onClick={() => setShowForm(!showForm)}
+      >
+        {showForm ? 'Hide customer creator' : '(+) Add a new customer'}
+      </button>
 
       {showForm && (
         <>
-          <hr />
-          <form onSubmit={formSubmit} className='addform'>
-            <div>
-              <label>Customer ID</label>
-              <input value={newCustomerId} onChange={e => setNewCustomerId(e.target.value)} />
+          <form onSubmit={formSubmit} className='customer-form'>
+            <div className='customer-form-row'>
+              <label htmlFor='customerId'>Customer ID</label>
+              <input
+                id='customerId'
+                value={newCustomerId}
+                onChange={e => setNewCustomerId(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Company Name</label>
-              <input value={newCompanyName} onChange={e => setNewCompanyName(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='companyName'>Company Name</label>
+              <input
+                id='companyName'
+                value={newCompanyName}
+                onChange={e => setNewCompanyName(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Contact Name</label>
-              <input value={newContactName} onChange={e => setNewContactName(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='contactName'>Contact Name</label>
+              <input
+                id='contactName'
+                value={newContactName}
+                onChange={e => setNewContactName(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Contact Title</label>
-              <input value={newContactTitle} onChange={e => setNewContactTitle(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='contactTitle'>Contact Title</label>
+              <input
+                id='contactTitle'
+                value={newContactTitle}
+                onChange={e => setNewContactTitle(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Address</label>
-              <input value={newAddress} onChange={e => setNewAddress(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='address'>Address</label>
+              <input
+                id='address'
+                value={newAddress}
+                onChange={e => setNewAddress(e.target.value)}
+              />
             </div>
-            <div>
-              <label>City</label>
-              <input value={newCity} onChange={e => setNewCity(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='city'>City</label>
+              <input
+                id='city'
+                value={newCity}
+                onChange={e => setNewCity(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Region</label>
-              <input value={newRegion} onChange={e => setNewRegion(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='region'>Region</label>
+              <input
+                id='region'
+                value={newRegion}
+                onChange={e => setNewRegion(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Postal Code</label>
-              <input value={newPostalCode} onChange={e => setNewPostalCode(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='postalCode'>Postal Code</label>
+              <input
+                id='postalCode'
+                value={newPostalCode}
+                onChange={e => setNewPostalCode(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Country</label>
-              <input value={newCountry} onChange={e => setNewCountry(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='country'>Country</label>
+              <input
+                id='country'
+                value={newCountry}
+                onChange={e => setNewCountry(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Phone</label>
-              <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='phone'>Phone</label>
+              <input
+                id='phone'
+                value={newPhone}
+                onChange={e => setNewPhone(e.target.value)}
+              />
             </div>
-            <div>
-              <label>Fax</label>
-              <input value={newFax} onChange={e => setNewFax(e.target.value)} />
+            <div className='customer-form-row'>
+              <label htmlFor='fax'>Fax</label>
+              <input
+                id='fax'
+                value={newFax}
+                onChange={e => setNewFax(e.target.value)}
+              />
             </div>
-            <button type="submit">Save</button>
+            <div className='customer-form-actions'>
+              <button type="submit" className='customer-action accent'>Save customer</button>
+            </div>
           </form>
         </>
       )}

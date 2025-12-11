@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import Laskuri from './Laskuri.jsx'
 import Events from './Events.jsx'
 import CustomerList from './customer_components/CustomerList.jsx'
 import Message from './Message.jsx'
 import UserList from './user_components/UserList.jsx'
-
+import Login from './Login' // <-------------
 
 // Navigointi ja Bootstrap importit
 import Navbar from 'react-bootstrap/Navbar'
@@ -15,13 +15,39 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
 const App = () => {
+  // App komponentin statet
   const [message, setMessage] = useState('')
   const [isPositive, setIspositive] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState('') //<-- username talletettu
+
+
+  useEffect(() => {
+  let storedUser = localStorage.getItem("username")
+  if (storedUser !== null) {
+    setLoggedInUser(storedUser)
+  }
+},[])
+
+
+// Logout napin tapahtumankäsittelijä
+const logout = () => {
+  localStorage.clear()
+  setLoggedInUser('')
+}
 
 
   return (
     <div>
+
+     {!loggedInUser && <Login setMessage={setMessage} setIspositive={setIspositive} 
+                setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser} />}
+
+   {showMessage && (
+        <Message message={message} isPositive={isPositive} />
+      )}
+
+      {loggedInUser && 
       <Router>      
       <Navbar className="cosmic-navbar" expand="lg">
         <Nav className="w-100 justify-content-center">
@@ -29,13 +55,10 @@ const App = () => {
             <Nav.Link href='/users'>Users</Nav.Link>
             <Nav.Link href='/laskuri'>Counter</Nav.Link>
             <Nav.Link href='/events'>Events</Nav.Link>
+            <button onClick={() => logout()}>Logout</button>
 
         </Nav>
       </Navbar>
-
-      {showMessage && (
-        <Message message={message} isPositive={isPositive} />
-      )}
 
       <Routes>
           <Route path="/customers"
@@ -61,7 +84,10 @@ const App = () => {
 
         </Routes>
 
-      </Router>
+      </Router> }
+
+     
+
     </div>
   )
 }

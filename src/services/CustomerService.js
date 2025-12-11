@@ -2,12 +2,29 @@ import axios from 'axios'
 
 const baseUrl = 'https://localhost:7165/api/Customers'
 
+let token = null
+
+// Tämä on metodi jota kutsutaan aina ennen kuin tehdään muu pyyntö serviceen
+// Parametrina annetaan token joka otetaan local storagesta
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
+
+
 const getAll = () => {
-  return axios.get(baseUrl).then(response => response.data)
+  const config = {
+        headers: { Authorization: token },
+    }
+  return axios.get(baseUrl, config)
+  .then(response => response.data)
 }
 
 const create = newCustomer => {
-  return axios.post(baseUrl, newCustomer).then(response => response.data)
+   const config = {
+        headers: { Authorization: token },
+    }
+  return axios.post(baseUrl, newCustomer, config)
+  .then(response => response.data)
 }
 
 const remove = id => {
@@ -19,4 +36,4 @@ const edit = cust => {
   return axios.put(`${baseUrl}/${id}`, cust)
 }
 
-export default { getAll, create, remove, edit }
+export default { getAll, create, remove, edit, setToken }
