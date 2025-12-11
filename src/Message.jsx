@@ -9,7 +9,6 @@ const Message = ({ isPositive, message }) => {
     tyyli = 'neg'
   }
 
-  console.log('Message render: tyyli=', tyyli, 'message=', message, 'isPositive=', isPositive)
   return (
     <div className={tyyli}>
       {message}
