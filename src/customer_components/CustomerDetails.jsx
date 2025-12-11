@@ -37,7 +37,7 @@ const CustomerDetails = ({ customer, setMessage, setShowMessage, setIspositive, 
         )
         .catch(error => {
             setMessage(error)
-            setIsPositive(false)
+            setIspositive(false)
             setShowMessage(true)
             window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
     
