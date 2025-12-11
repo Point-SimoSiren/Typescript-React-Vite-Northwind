@@ -3,14 +3,17 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import CustomerDetails from './CustomerDetails.jsx'
 
+// Mockataan verkko- ja lapsikomponentit: testi tarkistaa vain tämän komponentin logiikkaa.
 vi.mock('../services/CustomerService.js', () => ({
   default: { remove: vi.fn() },
 }))
 
+// Edit-komponentti korvataan yksinkertaisella divillä, jotta renderointi on halpaa ja ennustettavaa.
 vi.mock('./CustomerEdit.jsx', () => ({
   default: () => <div>MockedCustomerEdit</div>,
 }))
 
+// Yksi testidata-asiakas, jota kierrätetään kaikissa testeissä.
 const mockCustomer = {
   customerId: 'ALFKI',
   companyName: 'Alfreds',
@@ -24,6 +27,7 @@ const mockCustomer = {
   phone: '030-0074321',
 }
 
+// Luodaan uudet spy-handlerit joka testille, ettei kutsut vuoda testien välillä.
 const createHandlers = () => ({
   setMessage: vi.fn(),
   setShowMessage: vi.fn(),
@@ -54,6 +58,7 @@ describe('CustomerDetails', () => {
       />,
     )
 
+    // Käyttäjä klikkaa otsikkonappia -> pyydetään parentia näyttämään kortti.
     const toggleButton = screen.getByRole('button', { name: mockCustomer.companyName })
     fireEvent.click(toggleButton)
 
@@ -76,9 +81,11 @@ describe('CustomerDetails', () => {
       />,
     )
 
+    // detailedId täsmää -> rivit näkyvät, Hide-nappi näkyy.
     expect(screen.getByText(mockCustomer.contactName)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Hide details' })).toBeInTheDocument()
 
+    // Hide tyhjentää detailedId:n -> kortti piiloon.
     fireEvent.click(screen.getByRole('button', { name: 'Hide details' }))
     expect(handlers.setDetailedId).toHaveBeenCalledWith('')
   })
@@ -99,6 +106,7 @@ describe('CustomerDetails', () => {
       />,
     )
 
+    // Edit-painike vaihtaa editing-tilaa -> mockattu CustomerEdit ilmestyy.
     fireEvent.click(screen.getByRole('button', { name: 'Edit' }))
     expect(screen.getByText('MockedCustomerEdit')).toBeInTheDocument()
   })
@@ -107,6 +115,7 @@ describe('CustomerDetails', () => {
     const handlers = createHandlers()
     const CustomerService = (await import('../services/CustomerService.js')).default
 
+    // Mockataan confirm ja scrollBy, jotta testi ei avaa oikeaa dialogia tai scrollaa sivua.
     window.confirm = vi.fn().mockReturnValue(true)
     window.scrollBy = vi.fn()
     CustomerService.remove.mockResolvedValue({ status: 204 })
@@ -124,8 +133,10 @@ describe('CustomerDetails', () => {
       />,
     )
 
+    // Delete käynnistää poistoketjun -> mockattu remove palauttaa 204.
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
 
+    // Odotetaan async-kutsua ja UI-callbackeja.
     await waitFor(() => expect(CustomerService.remove).toHaveBeenCalledWith(mockCustomer.customerId))
     expect(handlers.setMessage).toHaveBeenCalledWith(
       `Successfully removed customer ${mockCustomer.companyName}`,
